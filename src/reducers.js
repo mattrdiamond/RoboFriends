@@ -1,4 +1,5 @@
 // Reducers specify how the application's state changes in response to actions sent to the store.
+// A reducing function returns the next state tree, given the current state tree and an action to handle.
 
 import { CHANGE_SEARCH_FIELD } from "./constants.js";
 

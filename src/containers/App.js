@@ -9,7 +9,10 @@ import "./App.css";
 import { connect } from "react-redux";
 import { setSearchField } from "../actions";
 
-// what state should app listen to in order to send down as props
+// mapStateToProps connects redux STATE to props of react component
+// returns an object that includes specified part of current state
+// both functions have to return an object, whose keys will then be
+// passed on as the props of the component they are connected to.
 const mapStateToProps = state => {
   // searchField will be used as props - state.searchRobots.searchField comes from reducer
   // in index.js we created the store with the searchRobots reducer
@@ -18,12 +21,19 @@ const mapStateToProps = state => {
   };
 };
 
+// allows us to modify state -> this function directs the dispatching or sending of an action by pointing it to an action creator.
+// connects redux ACTIONS to react props -> dispatches action to reducer -> store
 // dispatch triggers action (flux architecture) -> dispatch sends action to reducer
 // what props should app listen to that are actions that need to get dispatched
+
+// any time you connect component to redux store, you get access to dispatch function
+// mapDispatchToProps - replaces general dispatch function with onSearchChange or whatever you specify
+// ** instead of mapDispatchToProps function here, you can just list actions as second parameter in connect function below:
+// export default connect(mapStateToProps, {setSearchField})(App);
 const mapDispatchToProps = dispatch => {
   // onSearchChange named after onSearchChange function in App
   // action is a function that returns an object. dispatch setSearchField action so that reducers are aware of it
-  // event.target.value is same as onSearchChange function below -> text entered by user
+  // setSearchField imported from actions
   return {
     onSearchChange: event => dispatch(setSearchField(event.target.value))
   };
@@ -76,7 +86,7 @@ class App extends Component {
 
 // connect to redux - app subscribed to any state changes in redux store
 // connect is higher order function -> returns another function with app as param
-// connect params tell app what state and actions it should listen for and then give those props to app
+// // connect params tell app what state and actions it should listen for and then give those props to app
 export default connect(
   mapStateToProps,
   mapDispatchToProps
