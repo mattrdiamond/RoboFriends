@@ -1,13 +1,17 @@
-import { CHANGE_SEARCH_FIELD } from "./constants.js";
+import { apiCall } from './api/api'
+import {
+  CHANGE_SEARCHFIELD,
+  REQUEST_ROBOTS_PENDING,
+  REQUEST_ROBOTS_SUCCESS,
+  REQUEST_ROBOTS_FAILED
+ } from './constants'
 
-// Actions are payloads of information that send data from your application to your store.
-// They are the only source of information for the store.
 
-// setSearchField is action
-// text is what user inputs
-// function returns object with type 'CHANGE SEARCH FIELD'
-// payload: data sent to go on to reducer - in this case text entered by user
-export const setSearchField = text => ({
-  type: CHANGE_SEARCH_FIELD,
-  payload: text
-});
+export const setSearchField = (text) => ({ type: CHANGE_SEARCHFIELD, payload: text })
+
+export const requestRobots = () => (dispatch) => {
+  dispatch({ type: REQUEST_ROBOTS_PENDING })
+  apiCall('https://jsonplaceholder.typicode.com/users')
+    .then(data => dispatch({ type: REQUEST_ROBOTS_SUCCESS, payload: data }))
+    .catch(error => dispatch({ type: REQUEST_ROBOTS_FAILED, payload: error }))
+}

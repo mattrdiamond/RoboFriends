@@ -1,22 +1,37 @@
-// Reducers specify how the application's state changes in response to actions sent to the store.
-// A reducing function returns the next state tree, given the current state tree and an action to handle.
+import {
+  CHANGE_SEARCHFIELD,
+  REQUEST_ROBOTS_PENDING,
+  REQUEST_ROBOTS_SUCCESS,
+  REQUEST_ROBOTS_FAILED
+ } from './constants';
 
-import { CHANGE_SEARCH_FIELD } from "./constants.js";
-
-// initial state in redux store
 const initialStateSearch = {
-  searchField: ""
-};
+  searchField: ''
+}
 
-// Params: state of application (what action just happened)
-// 'initial state' and '{}' are default if state is empty
-export const searchRobots = (state = initialStateSearch, action = {}) => {
+export const searchRobots = (state=initialStateSearch, action={}) => {
   switch (action.type) {
-    case CHANGE_SEARCH_FIELD:
-      // return new state with current state plus update searchfield with action.payload (text entered by user)
-      return Object.assign({}, state, { searchField: action.payload });
-    // for other action types
+    case CHANGE_SEARCHFIELD:
+      return Object.assign({}, state, {searchField: action.payload})
     default:
-      return state;
+      return state
   }
-};
+}
+
+const initialStateRobots = {
+  robots: [],
+  isPending: true
+}
+
+export const requestRobots = (state=initialStateRobots, action={}) => {
+  switch (action.type) {
+    case REQUEST_ROBOTS_PENDING:
+      return Object.assign({}, state, {isPending: true})
+    case REQUEST_ROBOTS_SUCCESS:
+      return Object.assign({}, state, {robots: action.payload, isPending: false})
+    case REQUEST_ROBOTS_FAILED:
+      return Object.assign({}, state, {error: action.payload})
+    default:
+      return state
+  }
+}

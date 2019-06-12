@@ -1,25 +1,27 @@
-import React from "react";
-import ReactDOM from "react-dom";
-// Provider is a React component given to us by the “react-redux” library.
-// It serves just one purpose : to “provide” the store to its child components.
-import { Provider } from "react-redux";
-import { createStore } from "redux";
-import "./index.css";
-import App from "./containers/App";
-import registerServiceWorker from "./registerServiceWorker";
-import { searchRobots } from "./reducers";
-import "tachyons";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunkMiddleware from 'redux-thunk';
+import { createLogger } from 'redux-logger';
+import 'tachyons';
 
-// store uses reducers to create the store and create object tree of our state
-const store = createStore(searchRobots);
+import App from './containers/App';
+import registerServiceWorker from './registerServiceWorker';
+import { requestRobots, searchRobots } from './reducers'
 
-// provider will pass the store down the component tree from the app (without prop drilling)
-// connect - makes smart (container) components redux aware - tells app to listen to connect function rather than have to subscribing all components individually to get them to listen to redux changes
-// connect function is optimized to avoid having to use store.subscribe (built-in redux function to be aware of redux and listen for changes)
+import './index.css';
+
+const logger = createLogger()
+
+const rootReducers = combineReducers({requestRobots, searchRobots})
+
+const store = createStore(rootReducers, applyMiddleware(thunkMiddleware, logger))
+
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <App/>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 registerServiceWorker();
