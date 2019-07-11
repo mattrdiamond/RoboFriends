@@ -1,7 +1,6 @@
 # RoboFriends
 We all know how hard it is to keep track of all of our many robot friends. Thankfully, **RoboFriends** is here to make your life a whole lot easier! **RoboFriends** is a simple React app that allows you to search for your robot friends by name. The page will then filter all of the robots that match your search results. The robots each have a random name and email address populated by the *jsonplaceholder* API.
 
-![Screenshot of RoboFriends](img/robofriends.jpg) 
 
 ## Running Instructions
 1.	Click on "Clone or Download" on this repository page to download .zip file.
