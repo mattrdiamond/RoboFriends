@@ -1,11 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './containers/App';
-import registerServiceWorker from './registerServiceWorker';
-import 'tachyons';
-// because robots export is not default, need to destructure using brackets
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App.tsx";
+import "tachyons";
 
-
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
